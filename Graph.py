@@ -45,6 +45,9 @@ class Graph(dict):
                 del edges[v]
                 del self[v][u]
 
+    def vertices(self):
+        return self.keys()
+
 class Vertex(object):
     def __init__(self, label=''):
         self.label = label
@@ -80,3 +83,4 @@ if __name__ == '__main__':
     print g.get_edge(w, Vertex('lulu'))
     g.remove_edge(e)
     print g
+    print g.vertices()
