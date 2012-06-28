@@ -1,5 +1,7 @@
 __author__ = 'Mihnea'
 
+import Queue
+
 class Graph(dict):
     def __init__(self, vs=[], es=[]):
         """Create a new graph. vs is a list of vertices,
@@ -82,6 +84,33 @@ class Graph(dict):
         for p in pairs:
             self.add_edge(Edge(*p))
 
+    def is_connected(self):
+        """ does a BFS and checks if all nodes have been visited
+        """
+        # init
+        for v in self.vertices():
+            v.visited = False
+        q = Queue.Queue()
+        snode = self.vertices()[0]
+        q.put(snode)
+        snode.visited = True
+
+        # do the BFS
+        while not q.empty():
+            u = q.get()
+            for v in self[u].keys():
+                if not v.visited:
+                    q.put(v)
+                    v.visited = True
+
+        # check if all vertices have been visited
+        for v in self.vertices():
+            if not v.visited:
+                return False
+        return True
+
+
+
 class Vertex(object):
     def __init__(self, label=''):
         self.label = label
@@ -116,7 +145,7 @@ if __name__ == '__main__':
     e = Edge(v, w)
     e1 = Edge(u, v)
     print e
-    g = Graph([u, v, w], [e, e1])
+    g = Graph([u, v, w], [e])
     print g
     print g.get_edge(w, v)
     print g.get_edge(w, Vertex('lulu'))
@@ -126,5 +155,7 @@ if __name__ == '__main__':
     print g.edges()
     print g.out_vertices(v)
     print g.out_edges(v)
-    g.add_all_edges()
     print g
+    print g.is_connected()
+    g.add_all_edges()
+    print g.is_connected()
