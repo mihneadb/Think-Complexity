@@ -60,8 +60,17 @@ class Graph(dict):
         return list(edges)
 
     def out_vertices(self, u):
+        """ returns a list of vertices connected to u
+        """
         if u in self:
             return self[u].keys()
+        return []
+
+    def out_edges(self, u):
+        """ returns a list of edges that start from u
+        """
+        if u in self:
+            return self[u].values()
         return []
 
 class Vertex(object):
@@ -104,3 +113,4 @@ if __name__ == '__main__':
     print g.vertices()
     print g.edges()
     print g.out_vertices(v)
+    print g.out_edges(v)
