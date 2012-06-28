@@ -73,6 +73,15 @@ class Graph(dict):
             return self[u].values()
         return []
 
+    def add_all_edges(self):
+        """ starts with an edgeless Graph and makes it complete by adding edges
+        between all pairs of vertices
+        """
+        pairs = [(u, v) for u in self.vertices() for v in self.vertices()
+                    if u != v]
+        for p in pairs:
+            self.add_edge(Edge(*p))
+
 class Vertex(object):
     def __init__(self, label=''):
         self.label = label
@@ -81,6 +90,9 @@ class Vertex(object):
         return 'Vertex(%s)' % repr(self.label)
 
     __str__ = __repr__
+
+    def __eq__(self, other):
+        return self.label == other.label if type(other) is Vertex else False
 
 
 class Edge(tuple):
@@ -114,3 +126,5 @@ if __name__ == '__main__':
     print g.edges()
     print g.out_vertices(v)
     print g.out_edges(v)
+    g.add_all_edges()
+    print g
