@@ -46,7 +46,18 @@ class Graph(dict):
                 del self[v][u]
 
     def vertices(self):
+        """ returns a list of the graph's vertices
+        """
         return self.keys()
+
+    def edges(self):
+        """ returns a list of the graph's edges (no duplicates)
+        """
+        edges = set()
+        for v, es in self.iteritems():
+            for e in es.values():
+                edges.add(e)
+        return list(edges)
 
 class Vertex(object):
     def __init__(self, label=''):
@@ -81,6 +92,7 @@ if __name__ == '__main__':
     print g
     print g.get_edge(w, v)
     print g.get_edge(w, Vertex('lulu'))
-    g.remove_edge(e)
+    #g.remove_edge(e)
     print g
     print g.vertices()
+    print g.edges()
