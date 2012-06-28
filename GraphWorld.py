@@ -13,8 +13,8 @@ import math
 
 from itertools import chain
 
-from Gui import Gui
-from Gui import GuiCanvas
+from swampy.Gui import Gui
+from swampy.Gui import GuiCanvas
 
 from Graph import Vertex
 from Graph import Edge
