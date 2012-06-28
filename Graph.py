@@ -59,6 +59,11 @@ class Graph(dict):
                 edges.add(e)
         return list(edges)
 
+    def out_vertices(self, u):
+        if u in self:
+            return self[u].keys()
+        return []
+
 class Vertex(object):
     def __init__(self, label=''):
         self.label = label
@@ -86,9 +91,11 @@ class Edge(tuple):
 if __name__ == '__main__':
     v = Vertex('v')
     w = Vertex('w')
+    u = Vertex('u')
     e = Edge(v, w)
+    e1 = Edge(u, v)
     print e
-    g = Graph([v, w], [e])
+    g = Graph([u, v, w], [e, e1])
     print g
     print g.get_edge(w, v)
     print g.get_edge(w, Vertex('lulu'))
@@ -96,3 +103,4 @@ if __name__ == '__main__':
     print g
     print g.vertices()
     print g.edges()
+    print g.out_vertices(v)
